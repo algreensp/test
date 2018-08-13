@@ -38,12 +38,12 @@ public class DemoApplication {
                     //@formatter:off
                     List<LogLine> filteredLines= lines.map(line -> line.split(" "))
                             .map(lineArr -> new LogLine(lineArr[0],lineArr[1],lineArr[2]))
-                            .filter(logLine -> Utils.dateInRange(logLine.getLineDate())).collect(Collectors.toList());
+                            .filter(logLine -> Utils.dateInRange(logLine.setLineDate())).collect(Collectors.toList());
 
 
                     System.out.println( "HOSTS RECEVING CONNECTIONS FROM " + targetParam);
-                    List<String> hostsReceiving = filteredLines.stream().filter(l ->l.destination.equals(targetParam))
-                            .map(l -> l.source).distinct()
+                    List<String> hostsReceiving = filteredLines.stream().filter(l ->l.getDestination().equals(targetParam))
+                            .map(l -> l.getSource()).distinct()
                             .collect(Collectors.toList());
 
                     System.out.println(hostsReceiving.toString());
@@ -54,13 +54,13 @@ public class DemoApplication {
 
                     List<String> hostsConnected =
                             filteredLines.stream()
-                            .filter(l ->l.source.equals(sourceParam))
-                            .map(l -> l.destination).distinct()
+                            .filter(l ->l.getSource().equals(sourceParam))
+                            .map(l -> l.getDestination()).distinct()
                             .collect(Collectors.toList());
 
                     System.out.println(hostsConnected.toString());
 
-                    Map<String,Integer> test =filteredLines.stream().map(l -> l.source).collect(Collectors.toConcurrentMap(
+                    Map<String,Integer> test =filteredLines.stream().map(l -> l.getSource()).collect(Collectors.toConcurrentMap(
                             w -> w, w -> 1, Integer::sum));
 
                     System.out.println("HOST NAME GENERATED MOST CONNECTIONS");
