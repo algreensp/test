@@ -38,7 +38,7 @@ public class DemoApplication {
                     //@formatter:off
                     List<LogLine> filteredLines= lines.map(line -> line.split(" "))
                             .map(lineArr -> new LogLine(lineArr[0],lineArr[1],lineArr[2]))
-                            .filter(logLine -> Utils.dateInRange(logLine.setLineDate())).collect(Collectors.toList());
+                            .filter(logLine -> Utils.dateInRange(logLine.getLineDate())).collect(Collectors.toList());
 
 
                     System.out.println( "HOSTS RECEVING CONNECTIONS FROM " + targetParam);
@@ -82,7 +82,7 @@ public class DemoApplication {
 
         ScheduledExecutorService service = Executors
                 .newSingleThreadScheduledExecutor();
-        service.scheduleAtFixedRate(runnable, 0, 10, TimeUnit.SECONDS);
+        service.scheduleAtFixedRate(runnable, 0, 2, TimeUnit.SECONDS);
 
 
     }
